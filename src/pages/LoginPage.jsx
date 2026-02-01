@@ -21,29 +21,29 @@ export default function LoginPage() {
       return;
     }
 
-    // Lưu user (mock)
+    // Lưu user 
     localStorage.setItem("user", JSON.stringify(user));
-
+    navigate("/");
     // Redirect theo role
-    switch (user.role) {
-      case "CUSTOMER":
-        navigate("/");
-        break;
-      case "SALES":
-        navigate("/sales");
-        break;
-      case "OPERATION":
-        navigate("/operation");
-        break;
-      case "MANAGER":
-        navigate("/manager");
-        break;
-      case "ADMIN":
-        navigate("/admin");
-        break;
-      default:
-        navigate("/");
-    }
+    // switch (user.role) {
+    //   case "CUSTOMER":
+    //     navigate("/");
+    //     break;
+    //   case "SALES":
+    //     navigate("/sales");
+    //     break;
+    //   case "OPERATION":
+    //     navigate("/operation");
+    //     break;
+    //   case "MANAGER":
+    //     navigate("/manager");
+    //     break;
+    //   case "ADMIN":
+    //     navigate("/admin");
+    //     break;
+    //   default:
+    //     navigate("/");
+    // }
   };
 
   return (
@@ -77,7 +77,7 @@ export default function LoginPage() {
   );
 }
 
-/* ================= STYLES (inline cho nhanh demo) ================= */
+/* ================= STYLES ================= */
 
 const styles = {
   container: {

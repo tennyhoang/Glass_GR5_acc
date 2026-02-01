@@ -4,9 +4,33 @@ import "../../styles/NavBar.css";
 
 export default function NavBar() {
   const navigate = useNavigate();
-
   const user = JSON.parse(localStorage.getItem("user"));
   const [showMenu, setShowMenu] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    window.location.reload(); // reset UI cho demo
+  };
+
+  const goToDashboard = () => {
+    switch (user.role) {
+      case "SALES":
+        navigate("/sales");
+        break;
+      case "OPERATION":
+        navigate("/operation");
+        break;
+      case "MANAGER":
+        navigate("/manager");
+        break;
+      case "ADMIN":
+        navigate("/admin");
+        break;
+      default:
+        navigate("/");
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -23,13 +47,15 @@ export default function NavBar() {
 
         {/* RIGHT */}
         <div className="navbar-actions">
+          {/* CHƯA LOGIN */}
           {!user && (
             <button className="btn login" onClick={() => navigate("/login")}>
               Login
             </button>
           )}
 
-          {user?.role === "CUSTOMER" && user.avatar && (
+          {/* ĐÃ LOGIN (MỌI ROLE) */}
+          {user && user.avatar && (
             <div className="profile-wrapper">
               <img
                 src={user.avatar}
@@ -40,17 +66,25 @@ export default function NavBar() {
 
               {showMenu && (
                 <div className="profile-menu">
-                  <div onClick={() => navigate("/profile")}>Profile</div>
-                  <div onClick={() => navigate("/orders")}>Order History</div>
-                  <div onClick={() => navigate("/returns")}>
-                    Return Request
-                  </div>
-                  <div
-                    onClick={() => {
-                      localStorage.removeItem("user");
-                      navigate("/");
-                    }}
-                  >
+                  {/* CUSTOMER MENU */}
+                  {user.role === "CUSTOMER" ? (
+                    <>
+                      <div onClick={() => navigate("/profile")}>Profile</div>
+                      <div onClick={() => navigate("/orders")}>
+                        Order History
+                      </div>
+                      <div onClick={() => navigate("/returns")}>
+                        Return Request
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* SALES / OPERATION / MANAGER / ADMIN */}
+                      <div onClick={goToDashboard}>Dashboard</div>
+                    </>
+                  )}
+
+                  <div className="logout" onClick={handleLogout}>
                     Logout
                   </div>
                 </div>

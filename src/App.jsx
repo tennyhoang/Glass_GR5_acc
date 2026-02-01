@@ -1,12 +1,10 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/layout/NavBar";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-
 import SalesDashboard from "./pages/SalesDashboard";
-import OperationDashboard from "./pages/OperationDashboard";
-import ManagerDashboard from "./pages/ManagerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
@@ -20,13 +18,29 @@ function App() {
       {showNavBar && <NavBar />}
 
       <Routes>
+        {/* PUBLIC */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/sales" element={<SalesDashboard />} />
-        <Route path="/operation" element={<OperationDashboard />} />
-        <Route path="/manager" element={<ManagerDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        {/* SALES ONLY */}
+        <Route
+          path="/sales"
+          element={
+            <ProtectedRoute allowRoles={["SALES"]}>
+              <SalesDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ADMIN ONLY */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowRoles={["ADMIN"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
