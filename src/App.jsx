@@ -6,12 +6,16 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SalesDashboard from "./pages/SalesDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import CustomerProfile from "./pages/CustomerProfile";
+import OrderHistory from "./pages/OrderHistory";
+import ReturnRequest from "./pages/ReturnRequest";
 
 function App() {
   const location = useLocation();
 
-  // Chỉ hiện NavBar ở HomePage
-  const showNavBar = location.pathname === "/";
+  // Không hiển thị NavBar ở trang login
+  const hideNavBarRoutes = ["/login"];
+  const showNavBar = !hideNavBarRoutes.includes(location.pathname);
 
   return (
     <>
@@ -21,6 +25,9 @@ function App() {
         {/* PUBLIC */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile" element={<CustomerProfile />} />
+        <Route path="/orders" element={<OrderHistory />} />
+        <Route path="/returns" element={<ReturnRequest />} />
 
         {/* SALES ONLY */}
         <Route

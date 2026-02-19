@@ -42,7 +42,7 @@ export default function NavBar() {
 
         {/* CENTER */}
         <div className="navbar-search">
-          <input type="text" placeholder="Search glasses..." />
+          <input type="text" placeholder="Search ..." />
         </div>
 
         {/* RIGHT */}

@@ -5,6 +5,10 @@ const mockUsers = [
     password: "123",
     role: "CUSTOMER",
     name: "Customer One",
+    email: "customer1@email.com",
+    phone: "0900000001",
+    address: "Ho Chi Minh City",
+    status: "ACTIVE",
     avatar: "https://i.pravatar.cc/150?img=3",
     createDate: "2024-11-01"
   },
@@ -14,6 +18,10 @@ const mockUsers = [
     password: "123",
     role: "CUSTOMER",
     name: "Customer Two",
+    email: "customer2@email.com",
+    phone: "0900000002",
+    address: "Ha Noi",
+    status: "ACTIVE",
     avatar: "https://i.pravatar.cc/150?img=7",
     createDate: "2024-11-05"
   },
