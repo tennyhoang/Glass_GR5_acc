@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/layout/NavBar";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -13,9 +13,21 @@ import ReturnRequest from "./pages/ReturnRequest";
 function App() {
   const location = useLocation();
 
-  // Không hiển thị NavBar ở trang login
-  const hideNavBarRoutes = ["/login"];
-  const showNavBar = !hideNavBarRoutes.includes(location.pathname);
+  let user = null;
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch {
+    user = null;
+  }
+
+  const dashboardPaths = ["/sales", "/admin", "/operation"];
+  const isDashboardPage = dashboardPaths.some((path) =>
+    location.pathname.startsWith(path)
+  );
+  const isLoginPage = location.pathname === "/login";
+
+  // Hien NavBar cho ca guest va user, chi an o dashboard role va trang login
+  const showNavBar = !isDashboardPage && !isLoginPage;
 
   return (
     <>
@@ -24,7 +36,10 @@ function App() {
       <Routes>
         {/* PUBLIC */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/" replace /> : <LoginPage />}
+        />
         <Route path="/profile" element={<CustomerProfile />} />
         <Route path="/orders" element={<OrderHistory />} />
         <Route path="/returns" element={<ReturnRequest />} />

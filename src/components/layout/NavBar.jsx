@@ -1,16 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Cart from "./Cart";
 import "../../styles/NavBar.css";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = null;
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch {
+    user = null;
+  }
   const [showMenu, setShowMenu] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/");
-    window.location.reload(); // reset UI cho demo
+    window.location.reload(); // reset UI for demo
   };
 
   const goToDashboard = () => {
@@ -47,14 +53,19 @@ export default function NavBar() {
 
         {/* RIGHT */}
         <div className="navbar-actions">
-          {/* CHƯA LOGIN */}
+          {/* NOT LOGGED IN */}
           {!user && (
             <button className="btn login" onClick={() => navigate("/login")}>
               Login
             </button>
           )}
 
-          {/* ĐÃ LOGIN (MỌI ROLE) */}
+          {/* CUSTOMER ONLY */}
+          {user?.role === "CUSTOMER" && (
+            <Cart />
+          )}
+
+          {/* LOGGED IN (ALL ROLES) */}
           {user && user.avatar && (
             <div className="profile-wrapper">
               <img
