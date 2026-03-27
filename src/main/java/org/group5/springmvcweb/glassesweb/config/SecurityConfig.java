@@ -76,6 +76,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",  // Vite default
+                "http://localhost:5176",  // Vite custom port
                 "http://localhost:3000"   // CRA default
         ));
         config.setAllowedMethods(List.of(
