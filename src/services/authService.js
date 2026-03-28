@@ -1,7 +1,7 @@
 import axios from "axios";
 import api from "./api";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL || "https://glassesweb.onrender.com";
 
 export const login = async (username, password) => {
   const res = await axios.post(`${API_URL}/auth/login`, {
