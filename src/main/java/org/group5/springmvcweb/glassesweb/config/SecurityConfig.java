@@ -77,7 +77,9 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",  // Vite default
                 "http://localhost:5176",  // Vite custom port
-                "http://localhost:3000"   // CRA default
+                "http://localhost:3000",
+                "https://glassesweb-fe.onrender.com"
+            // CRA default
         ));
         config.setAllowedMethods(List.of(
                 "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
